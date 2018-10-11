@@ -27,6 +27,18 @@ public class FoodController {
         return ResponseEntity.ok(foodRepository.findByName(name));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity updateFood(@PathVariable("id") String id, @RequestBody Food food) {
+        if(!foodRepository.findById(id).isPresent())
+            return ResponseEntity.notFound().build();
+
+        Food foodEntity = foodRepository.findById(id).get();
+
+        //update entity with fields of the JSON food
+
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping
     public ResponseEntity postFood(@RequestBody Food food) throws URISyntaxException {
         if(food.getName() == null || food.getName().equals(""))
