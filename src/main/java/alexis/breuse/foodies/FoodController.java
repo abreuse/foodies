@@ -39,4 +39,17 @@ public class FoodController {
 
         return ResponseEntity.created(new URI("localhost:8080/food?search=" + food.getName())).build();
     }
+
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteFood(@PathVariable("id") String id) {
+
+        if(!foodRepository.findById(id).isPresent())
+            return ResponseEntity.notFound().build();
+
+        foodRepository.deleteById(id);
+
+        return ResponseEntity.ok().build();
+    }
 }
